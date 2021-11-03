@@ -111,10 +111,10 @@ flex property on a child of a flex-container as a shorthand for grow, shrink and
 } */
 
 /* flex-shrink: How much negative free space can be removed from this item? */
-.box3 > div {
+/* .box3 > div {
     flex: 0 0 200px;
 }
 
 div.one {
     flex: 0 0 200px;
-}
+} */

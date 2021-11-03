@@ -1,20 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
-nav {
-    display: flex;
-    justify-content: flex-end;
-}
-
-nav > ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 10px;
-}
-
 @media screen and (max-width: 600px) {
     nav > ul {
         flex-direction: column;
@@ -36,11 +19,5 @@ nav > ul {
 
     h1 {
         text-align: center;
-    }
-}
-
-@media print {
-    img {
-        display: none;
     }
 }
