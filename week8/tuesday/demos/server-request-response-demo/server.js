@@ -1,11 +1,18 @@
 const http = require('http');
 const fs = require("fs");
 
+let database = []; // { task: 'Read', time: '08:55'}
+
 const server = http.createServer((req, res) => {
     console.log(`${req.method} ${req.url}`);
 
     if (req.method === "GET" && req.url === "/") {
-        const resBody = fs.readFileSync("index.html");
+        const htmlPage = fs.readFileSync("index.html", 'utf-8');
+        const taskList = database.map(task => {
+            return `<li>${task.tasks} - ${task.time}</li>`
+        });
+        console.log(taskList);
+        const resBody = htmlPage.replace(/#{tasks}/g, taskList.join(''));
         res.statusCode = 200;
         res.setHeader("Content-Type", "text/html");
         return res.end(resBody);
@@ -39,6 +46,8 @@ const server = http.createServer((req, res) => {
 
         if (req.method === "POST" && req.url === "/tasks") {
             console.log(req.body);
+            // { task: 'Read', time: '08:55'}
+            database.push(req.body);
             // save that task into the database
             // redirect the user to homepage
             res.statusCode = 302;
