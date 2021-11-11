@@ -93,7 +93,7 @@ const server = http.createServer((req, res) => {
       // use `dogs` array created at the top of the file
       const dogsList = dogs.map(dog => {
         if (dog.liked) {
-          return `<li id=${dog.name}-${dog.dogId}><h2>${dog.name}</h2><button id=${dog.name}-${dog.dogId} disabled>Liked</button>❤️</li>`
+          return `<li id=${dog.name}-${dog.dogId}><h2>${dog.name}</h2><button id=${dog.name}-${dog.dogId}>Unlike</button><span class="heart-${dog.name}-${dog.dogId}">❤️</span></li>`
         } else {
           return `<li id=${dog.name}-${dog.dogId}><h2>${dog.name}</h2><button id=${dog.name}-${dog.dogId}>Like</button></li>`
         }
@@ -108,14 +108,25 @@ const server = http.createServer((req, res) => {
       //!!END
     }
 
-    if (req.method === 'POST' && req.url.startsWith('/dogs/')) {
+    // `/api/dogs/${dogId}/like`
+    if (req.method === 'POST' && req.url.startsWith('/api/dogs/')) {
       const urlParts = req.url.split('/');
-      const dogId = urlParts[2];
+      const dogId = urlParts[3];
       const dog = dogs.find(dog => dog.dogId === parseInt(dogId));
       dog.liked = true;
       res.statusCode = 201;
       res.setHeader('Content-Type', 'text/json');
       return res.end(JSON.stringify('❤️'));
+    }
+
+    if (req.method === 'DELETE' && req.url.startsWith('/api/dogs/')) {
+      const urlParts = req.url.split('/');
+      const dogId = urlParts[3];
+      const dog = dogs.find(dog => dog.dogId === parseInt(dogId));
+      dog.liked = false;
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/json');
+      return res.end(JSON.stringify({'message': 'like deleted'}));
     }
 
     // Phase 2: GET /dogs/new
