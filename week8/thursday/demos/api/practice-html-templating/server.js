@@ -116,7 +116,7 @@ const server = http.createServer((req, res) => {
       dog.liked = true;
       res.statusCode = 201;
       res.setHeader('Content-Type', 'text/json');
-      return res.end(JSON.stringify('❤️'));
+      return res.end(JSON.stringify('❤️😜'));
     }
 
     if (req.method === 'DELETE' && req.url.startsWith('/api/dogs/')) {
