@@ -7,8 +7,8 @@ function getCookieValue(cookieName) {
 
     // split up cookie to find just the part that's needed
     const matchingCookie = allCookies
-        // .split('; ')
-        // .find(c => c.startsWith(`${cookieName}=`));
+        .split('; ')
+        .find(c => c.startsWith(`${cookieName}=`));
 
     // the value is just the part after the equal sign
     if (matchingCookie) {
@@ -25,7 +25,7 @@ function storeTheme(themeName) {
     //!!START
     // Phase 1
     // console.log(themeName);
-    document.cookie = `theme=${themeName}`;
+    document.cookie = `theme=${themeName}; max-age=1000`;
     // Phase 2
     // document.cookie = `theme=${themeName};max-age=10`;
     //!!END
@@ -35,7 +35,7 @@ function storeTheme(themeName) {
 
 function restoreTheme() {
     //!!START
-    const storedTheme = getCookieValue('theme');
+    const storedTheme = document.cookie.split('=')[1];
     if (storedTheme) {
         setTheme(storedTheme);
     }
